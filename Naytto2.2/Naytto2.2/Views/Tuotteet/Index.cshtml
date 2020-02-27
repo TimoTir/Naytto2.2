@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Naytto2._2.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kuvaus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Määrä)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sarjanumero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tuotemerkki)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tuotemalli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HenkilöId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kuvaus)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Määrä)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sarjanumero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tuotemerkki)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tuotemalli)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HenkilöId)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.tuoteId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.tuoteId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.tuoteId })
+    </td>
+</tr>
+}
+
+</table>

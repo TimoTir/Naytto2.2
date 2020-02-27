@@ -131,6 +131,9 @@
     <Compile Include="Controllers\AsiakkaatController.cs" />
     <Compile Include="Controllers\HenkilöstöController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TilausController.cs" />
+    <Compile Include="Controllers\TilausriviController.cs" />
+    <Compile Include="Controllers\TuotteetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +238,17 @@
     <Content Include="Views\Asiakkaat\Details.cshtml" />
     <Content Include="Views\Asiakkaat\Edit.cshtml" />
     <Content Include="Views\Asiakkaat\Index.cshtml" />
+    <Content Include="Views\Tilaus\Create.cshtml" />
+    <Content Include="Views\Tilaus\Delete.cshtml" />
+    <Content Include="Views\Tilaus\Details.cshtml" />
+    <Content Include="Views\Tilaus\Edit.cshtml" />
+    <Content Include="Views\Tilaus\Index.cshtml" />
+    <Content Include="Views\Tilausrivi\Index.cshtml" />
+    <Content Include="Views\Tuotteet\Create.cshtml" />
+    <Content Include="Views\Tuotteet\Delete.cshtml" />
+    <Content Include="Views\Tuotteet\Details.cshtml" />
+    <Content Include="Views\Tuotteet\Edit.cshtml" />
+    <Content Include="Views\Tuotteet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

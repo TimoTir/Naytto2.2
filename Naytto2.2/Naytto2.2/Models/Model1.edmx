@@ -12,7 +12,7 @@
           <Property Name="asiakasId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Yhteyshenkilö" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Yritysnimi" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Puhelin" Type="nchar" MaxLength="10" />
+          <Property Name="Puhelin" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Sähköposti" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Henkilöstö">
@@ -23,7 +23,7 @@
           <Property Name="Accesslevel" Type="int" />
           <Property Name="Etunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Puhelin" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Puhelin" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Logins">
@@ -160,7 +160,7 @@
           <NavigationProperty Name="Tilaus" Relationship="Self.FK_Tilaus_Asiakkaat" FromRole="Asiakkaat" ToRole="Tilaus" />
           <Property Name="Yhteyshenkilö" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Yritysnimi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Puhelin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Puhelin" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Sähköposti" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Henkilöstö">
@@ -170,7 +170,7 @@
           <Property Name="HenkilöId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Puhelin" Type="String" Nullable="false" />
+          <Property Name="Puhelin" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Logins" Relationship="Self.FK_Logins_Henkilöstö" FromRole="Henkilöstö" ToRole="Logins" />
           <Property Name="Accesslevel" Type="Int32" />
@@ -223,7 +223,7 @@
           </Key>
           <Property Name="tuoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Kuvaus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Määrä" Type="String" Nullable="false" />
+          <Property Name="Määrä" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
           <Property Name="Sarjanumero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HenkilöId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Tilausrivi" Relationship="Self.FK_Tilausrivi_Tuotteet" FromRole="Tuotteet" ToRole="Tilausrivi" />

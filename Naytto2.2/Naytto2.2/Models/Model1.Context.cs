@@ -29,7 +29,7 @@ namespace Naytto2._2.Models
         public virtual DbSet<Henkilöstö> Henkilöstö { get; set; }
         public virtual DbSet<Logins> Logins { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Tilaus> Tilaus { get; set; }
+        public virtual DbSet<Tilaus> Tilaus{ get; set; }
         public virtual DbSet<Tilausrivi> Tilausrivi { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }
     }

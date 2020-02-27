@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.HenkilöId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Etunimi)
         </th>
         <th>
@@ -23,29 +26,38 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accesslevel)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Etunimi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sukunimi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Puhelin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HenkilöId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.HenkilöId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.HenkilöId })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.HenkilöId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Etunimi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sukunimi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Puhelin)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Accesslevel)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.HenkilöId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.HenkilöId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.HenkilöId })
+    </td>
+</tr>
 }
 
 </table>
