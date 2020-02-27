@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="078fc786905a4d8eba3f329f1b0bd3b6" Name="Diagram1">
+        <EntityTypeShape EntityType="TestifkpkModel.Asiakkaat" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.Henkilöstö" Width="1.5" PointX="5.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.Logins" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.Tilaus" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.Tilausrivi" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestifkpkModel.Tuotteet" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="TestifkpkModel.FK_Tilaus_Asiakkaat" ManuallyRouted="false" />
+        <AssociationConnector Association="TestifkpkModel.FK_Logins_Henkilöstö" ManuallyRouted="false" />
+        <AssociationConnector Association="TestifkpkModel.FK_Tilausrivi_Tilaus" ManuallyRouted="false" />
+        <AssociationConnector Association="TestifkpkModel.FK_Tilausrivi_Tuotteet" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

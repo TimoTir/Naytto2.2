@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestifkpkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asiakkaat">
+          <Key>
+            <PropertyRef Name="asiakasId" />
+          </Key>
+          <Property Name="asiakasId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yhteyshenkilö" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yritysnimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Puhelin" Type="nchar" MaxLength="10" />
+          <Property Name="Sähköposti" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Henkilöstö">
+          <Key>
+            <PropertyRef Name="HenkilöId" />
+          </Key>
+          <Property Name="HenkilöId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accesslevel" Type="int" />
+          <Property Name="Etunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sukunimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Puhelin" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HenkilöId" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tilaus">
+          <Key>
+            <PropertyRef Name="tilausId" />
+          </Key>
+          <Property Name="tilausId" Type="int" Nullable="false" />
+          <Property Name="TilausPvm" Type="datetime" Nullable="false" />
+          <Property Name="asiakasId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tilausrivi">
+          <Key>
+            <PropertyRef Name="tilausId" />
+            <PropertyRef Name="tuoteId" />
+          </Key>
+          <Property Name="tilausId" Type="int" Nullable="false" />
+          <Property Name="tuoteId" Type="int" Nullable="false" />
+          <Property Name="Määrä" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tuotteet">
+          <Key>
+            <PropertyRef Name="tuoteId" />
+          </Key>
+          <Property Name="tuoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kuvaus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tuotemerkki" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tuotemalli" Type="nvarchar" MaxLength="50" />
+          <Property Name="Määrä" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Sarjanumero" Type="nvarchar" MaxLength="50" />
+          <Property Name="HenkilöId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Logins_Henkilöstö">
+          <End Role="Henkilöstö" Type="Self.Henkilöstö" Multiplicity="0..1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilöstö">
+              <PropertyRef Name="HenkilöId" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="HenkilöId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tilaus_Asiakkaat">
+          <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
+          <End Role="Tilaus" Type="Self.Tilaus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asiakkaat">
+              <PropertyRef Name="asiakasId" />
+            </Principal>
+            <Dependent Role="Tilaus">
+              <PropertyRef Name="asiakasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tilausrivi_Tilaus">
+          <End Role="Tilaus" Type="Self.Tilaus" Multiplicity="1" />
+          <End Role="Tilausrivi" Type="Self.Tilausrivi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tilaus">
+              <PropertyRef Name="tilausId" />
+            </Principal>
+            <Dependent Role="Tilausrivi">
+              <PropertyRef Name="tilausId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tilausrivi_Tuotteet">
+          <End Role="Tuotteet" Type="Self.Tuotteet" Multiplicity="1" />
+          <End Role="Tilausrivi" Type="Self.Tilausrivi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tuotteet">
+              <PropertyRef Name="tuoteId" />
+            </Principal>
+            <Dependent Role="Tilausrivi">
+              <PropertyRef Name="tuoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestifkpkModelStoreContainer">
+          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Henkilöstö" EntityType="Self.Henkilöstö" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tilaus" EntityType="Self.Tilaus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tilausrivi" EntityType="Self.Tilausrivi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Logins_Henkilöstö" Association="Self.FK_Logins_Henkilöstö">
+            <End Role="Henkilöstö" EntitySet="Henkilöstö" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tilaus_Asiakkaat" Association="Self.FK_Tilaus_Asiakkaat">
+            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
+            <End Role="Tilaus" EntitySet="Tilaus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tilausrivi_Tilaus" Association="Self.FK_Tilausrivi_Tilaus">
+            <End Role="Tilaus" EntitySet="Tilaus" />
+            <End Role="Tilausrivi" EntitySet="Tilausrivi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tilausrivi_Tuotteet" Association="Self.FK_Tilausrivi_Tuotteet">
+            <End Role="Tuotteet" EntitySet="Tuotteet" />
+            <End Role="Tilausrivi" EntitySet="Tilausrivi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestifkpkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asiakkaat">
+          <Key>
+            <PropertyRef Name="asiakasId" />
+          </Key>
+          <Property Name="asiakasId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Tilaus" Relationship="Self.FK_Tilaus_Asiakkaat" FromRole="Asiakkaat" ToRole="Tilaus" />
+          <Property Name="Yhteyshenkilö" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Yritysnimi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Puhelin" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Sähköposti" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Henkilöstö">
+          <Key>
+            <PropertyRef Name="HenkilöId" />
+          </Key>
+          <Property Name="HenkilöId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Etunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sukunimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Puhelin" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK_Logins_Henkilöstö" FromRole="Henkilöstö" ToRole="Logins" />
+          <Property Name="Accesslevel" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HenkilöId" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Henkilöstö" Relationship="Self.FK_Logins_Henkilöstö" FromRole="Logins" ToRole="Henkilöstö" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tilaus">
+          <Key>
+            <PropertyRef Name="tilausId" />
+          </Key>
+          <Property Name="tilausId" Type="Int32" Nullable="false" />
+          <Property Name="asiakasId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asiakkaat" Relationship="Self.FK_Tilaus_Asiakkaat" FromRole="Tilaus" ToRole="Asiakkaat" />
+          <NavigationProperty Name="Tilausrivi" Relationship="Self.FK_Tilausrivi_Tilaus" FromRole="Tilaus" ToRole="Tilausrivi" />
+          <Property Name="TilausPvm" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Tilausrivi">
+          <Key>
+            <PropertyRef Name="tilausId" />
+            <PropertyRef Name="tuoteId" />
+          </Key>
+          <Property Name="tilausId" Type="Int32" Nullable="false" />
+          <Property Name="tuoteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tilaus" Relationship="Self.FK_Tilausrivi_Tilaus" FromRole="Tilausrivi" ToRole="Tilaus" />
+          <NavigationProperty Name="Tuotteet" Relationship="Self.FK_Tilausrivi_Tuotteet" FromRole="Tilausrivi" ToRole="Tuotteet" />
+          <Property Name="Määrä" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tuotteet">
+          <Key>
+            <PropertyRef Name="tuoteId" />
+          </Key>
+          <Property Name="tuoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kuvaus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Määrä" Type="String" Nullable="false" />
+          <Property Name="Sarjanumero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HenkilöId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tilausrivi" Relationship="Self.FK_Tilausrivi_Tuotteet" FromRole="Tuotteet" ToRole="Tilausrivi" />
+          <Property Name="Tuotemerkki" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tuotemalli" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Tilaus_Asiakkaat">
+          <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="1" />
+          <End Role="Tilaus" Type="Self.Tilaus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asiakkaat">
+              <PropertyRef Name="asiakasId" />
+            </Principal>
+            <Dependent Role="Tilaus">
+              <PropertyRef Name="asiakasId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logins_Henkilöstö">
+          <End Role="Henkilöstö" Type="Self.Henkilöstö" Multiplicity="0..1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Henkilöstö">
+              <PropertyRef Name="HenkilöId" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="HenkilöId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tilausrivi_Tilaus">
+          <End Role="Tilaus" Type="Self.Tilaus" Multiplicity="1" />
+          <End Role="Tilausrivi" Type="Self.Tilausrivi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tilaus">
+              <PropertyRef Name="tilausId" />
+            </Principal>
+            <Dependent Role="Tilausrivi">
+              <PropertyRef Name="tilausId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tilausrivi_Tuotteet">
+          <End Role="Tuotteet" Type="Self.Tuotteet" Multiplicity="1" />
+          <End Role="Tilausrivi" Type="Self.Tilausrivi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tuotteet">
+              <PropertyRef Name="tuoteId" />
+            </Principal>
+            <Dependent Role="Tilausrivi">
+              <PropertyRef Name="tuoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestifkpkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" />
+          <EntitySet Name="Henkilöstö" EntityType="Self.Henkilöstö" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tilaus" EntityType="Self.Tilaus" />
+          <EntitySet Name="Tilausrivi" EntityType="Self.Tilausrivi" />
+          <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" />
+          <AssociationSet Name="FK_Tilaus_Asiakkaat" Association="Self.FK_Tilaus_Asiakkaat">
+            <End Role="Asiakkaat" EntitySet="Asiakkaat" />
+            <End Role="Tilaus" EntitySet="Tilaus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_Henkilöstö" Association="Self.FK_Logins_Henkilöstö">
+            <End Role="Henkilöstö" EntitySet="Henkilöstö" />
+            <End Role="Logins" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tilausrivi_Tilaus" Association="Self.FK_Tilausrivi_Tilaus">
+            <End Role="Tilaus" EntitySet="Tilaus" />
+            <End Role="Tilausrivi" EntitySet="Tilausrivi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tilausrivi_Tuotteet" Association="Self.FK_Tilausrivi_Tuotteet">
+            <End Role="Tuotteet" EntitySet="Tuotteet" />
+            <End Role="Tilausrivi" EntitySet="Tilausrivi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestifkpkModelStoreContainer" CdmEntityContainer="TestifkpkEntities">
+          <EntitySetMapping Name="Asiakkaat">
+            <EntityTypeMapping TypeName="TestifkpkModel.Asiakkaat">
+              <MappingFragment StoreEntitySet="Asiakkaat">
+                <ScalarProperty Name="Sähköposti" ColumnName="Sähköposti" />
+                <ScalarProperty Name="Puhelin" ColumnName="Puhelin" />
+                <ScalarProperty Name="Yritysnimi" ColumnName="Yritysnimi" />
+                <ScalarProperty Name="Yhteyshenkilö" ColumnName="Yhteyshenkilö" />
+                <ScalarProperty Name="asiakasId" ColumnName="asiakasId" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Henkilöstö">
+            <EntityTypeMapping TypeName="TestifkpkModel.Henkilöstö">
+              <MappingFragment StoreEntitySet="Henkilöstö">
+                <ScalarProperty Name="Accesslevel" ColumnName="Accesslevel" />
+                <ScalarProperty Name="HenkilöId" ColumnName="HenkilöId" />
+                <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
+                <ScalarProperty Name="Sukunimi" ColumnName="Sukunimi" />
+                <ScalarProperty Name="Puhelin" ColumnName="Puhelin" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="TestifkpkModel.Logins">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="HenkilöId" ColumnName="HenkilöId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TestifkpkModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tilaus">
+            <EntityTypeMapping TypeName="TestifkpkModel.Tilaus">
+              <MappingFragment StoreEntitySet="Tilaus">
+                <ScalarProperty Name="TilausPvm" ColumnName="TilausPvm" />
+                <ScalarProperty Name="tilausId" ColumnName="tilausId" />
+                <ScalarProperty Name="asiakasId" ColumnName="asiakasId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tilausrivi">
+            <EntityTypeMapping TypeName="TestifkpkModel.Tilausrivi">
+              <MappingFragment StoreEntitySet="Tilausrivi">
+                <ScalarProperty Name="Määrä" ColumnName="Määrä" />
+                <ScalarProperty Name="tilausId" ColumnName="tilausId" />
+                <ScalarProperty Name="tuoteId" ColumnName="tuoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tuotteet">
+            <EntityTypeMapping TypeName="TestifkpkModel.Tuotteet">
+              <MappingFragment StoreEntitySet="Tuotteet">
+                <ScalarProperty Name="Tuotemalli" ColumnName="Tuotemalli" />
+                <ScalarProperty Name="Tuotemerkki" ColumnName="Tuotemerkki" />
+                <ScalarProperty Name="tuoteId" ColumnName="tuoteId" />
+                <ScalarProperty Name="Kuvaus" ColumnName="Kuvaus" />
+                <ScalarProperty Name="Määrä" ColumnName="Määrä" />
+                <ScalarProperty Name="Sarjanumero" ColumnName="Sarjanumero" />
+                <ScalarProperty Name="HenkilöId" ColumnName="HenkilöId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

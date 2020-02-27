@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Naytto2._2.Models.Asiakkaat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Yhteyshenkilö)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Yritysnimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Puhelin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sähköposti)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Yhteyshenkilö)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Yritysnimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Puhelin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sähköposti)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.asiakasId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.asiakasId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.asiakasId })
+        </td>
+    </tr>
+}
+
+</table>
