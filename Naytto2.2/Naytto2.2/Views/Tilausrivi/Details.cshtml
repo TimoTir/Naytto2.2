@@ -1,0 +1,42 @@
+﻿@model Naytto2._2.Models.Tilausrivi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tilausrivi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Määrä)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Määrä)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilaus.tilausId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilaus.tilausId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tuotteet.Kuvaus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tuotteet.Kuvaus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

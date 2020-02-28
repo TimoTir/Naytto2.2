@@ -243,12 +243,16 @@
     <Content Include="Views\Tilaus\Details.cshtml" />
     <Content Include="Views\Tilaus\Edit.cshtml" />
     <Content Include="Views\Tilaus\Index.cshtml" />
-    <Content Include="Views\Tilausrivi\Index.cshtml" />
     <Content Include="Views\Tuotteet\Create.cshtml" />
     <Content Include="Views\Tuotteet\Delete.cshtml" />
     <Content Include="Views\Tuotteet\Details.cshtml" />
     <Content Include="Views\Tuotteet\Edit.cshtml" />
     <Content Include="Views\Tuotteet\Index.cshtml" />
+    <Content Include="Views\Tilausrivi\Create.cshtml" />
+    <Content Include="Views\Tilausrivi\Delete.cshtml" />
+    <Content Include="Views\Tilausrivi\Details.cshtml" />
+    <Content Include="Views\Tilausrivi\Edit.cshtml" />
+    <Content Include="Views\Tilausrivi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

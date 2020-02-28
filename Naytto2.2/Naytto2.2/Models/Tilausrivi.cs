@@ -16,7 +16,7 @@ namespace Naytto2._2.Models
     {
         public int tilausId { get; set; }
         public int tuoteId { get; set; }
-        public int Määrä { get; set; }
+        public Nullable <int> Määrä { get; set; }
     
         public virtual Tilaus Tilaus { get; set; }
         public virtual Tuotteet Tuotteet { get; set; }
